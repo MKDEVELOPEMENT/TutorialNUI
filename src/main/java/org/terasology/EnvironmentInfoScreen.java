@@ -19,10 +19,13 @@ import org.terasology.engine.Time;
 import org.terasology.registry.In;
 import org.terasology.rendering.nui.CoreScreenLayer;
 import org.terasology.rendering.nui.widgets.UIButton;
+import org.terasology.rendering.nui.widgets.UISlider;
 import org.terasology.rendering.nui.widgets.UIText;
 
 public class EnvironmentInfoScreen extends CoreScreenLayer {
     private UIText infoArea;
+    private UISlider fpsSlide;
+    private UIText desiredTxt;
     private UIButton updateInfoButton;
 
     @In
@@ -31,17 +34,16 @@ public class EnvironmentInfoScreen extends CoreScreenLayer {
     @Override
     public void initialise() {
         infoArea = find("infoArea", UIText.class);
-        updateInfoButton = find("updateInfoButton", UIButton.class);
+        fpsSlide = find("FPSScroll", UISlider.class);
+        desiredTxt = find("desiredTxt", UIText.class);
+        updateInfoButton = find("updateFPSButton", UIButton.class);
 
         if (updateInfoButton != null) {
             updateInfoButton.subscribe(button -> {
-                final double bytesInMegabyte = 1048576.0;
-                double memoryUsage = ((double) Runtime.getRuntime().totalMemory() - (double) Runtime.getRuntime().freeMemory()) / bytesInMegabyte;
-                infoArea.setText(String.format("Welcome to the environment info screen!%n" +
-                                "The current world has been active for %.0f (in-game) seconds.%n" +
-                                "Currently running at %.2f FPS and using %.2f MB of memory out of %.2f available.",
-                        time.getGameTime(), time.getFps(),
-                        memoryUsage, Runtime.getRuntime().maxMemory() / bytesInMegabyte));
+                infoArea.setText(String.format("Your current FPS is: %.0f",
+                        time.getFps()));
+                float valSelected = fpsSlide.getValue();
+                desiredTxt.setText(String.format("Your Desired FPS is: %.2f FPS", valSelected));
             });
         }
     }
