@@ -19,10 +19,14 @@ import org.terasology.engine.Time;
 import org.terasology.registry.In;
 import org.terasology.rendering.nui.CoreScreenLayer;
 import org.terasology.rendering.nui.widgets.UIButton;
+import org.terasology.rendering.nui.widgets.UISlider;
+import org.terasology.rendering.nui.widgets.UISliderOnChangeTriggeredListener;
 import org.terasology.rendering.nui.widgets.UIText;
 
 public class EnvironmentInfoScreen extends CoreScreenLayer {
     private UIText infoArea;
+    private UISlider fpsSlide;
+    private UIText desiredTxt;
     private UIButton updateInfoButton;
 
     @In
@@ -31,6 +35,8 @@ public class EnvironmentInfoScreen extends CoreScreenLayer {
     @Override
     public void initialise() {
         infoArea = find("infoArea", UIText.class);
+        fpsSlide = find("FPSSlide", UISlider.class);
+        desiredTxt = find("desiredTxt", UIText.class);
         updateInfoButton = find("updateFPSButton", UIButton.class);
 
         if (updateInfoButton != null) {
@@ -39,5 +45,9 @@ public class EnvironmentInfoScreen extends CoreScreenLayer {
                         time.getFps()));
             });
         }
+
+        fpsSlide.setUiSliderOnChangeTriggeredListener(val -> {
+            desiredTxt.setText(String.format("Your desired FPS is %.0f", val));
+        });
     }
 }

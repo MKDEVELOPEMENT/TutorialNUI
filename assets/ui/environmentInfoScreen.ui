@@ -40,6 +40,7 @@
             },
             {
               "type": "UISlider",
+              "id": "FPSSlide",
               "layoutInfo": {
                 "position-horizontal-center": {},
                 "position-vertical-center": {},
