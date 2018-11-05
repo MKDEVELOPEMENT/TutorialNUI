@@ -32,6 +32,13 @@
               "readOnly": true
             },
             {
+              "type": "UIText",
+              "text": "Just for fun, insert your desired FPS",
+              "id": "desiredTxt",
+              "multiline": false,
+              "readOnly": true
+            },
+            {
               "type": "UISlider",
               "layoutInfo": {
                 "position-horizontal-center": {},
@@ -41,15 +48,8 @@
               },
               "value": 15,
               "minimum": 10,
-              "range": 100,
+              "range": 90,
               "precision":1
-            },
-            {
-              "type": "UIText",
-              "text": "Desired FPS: ",
-              "id": "desiredTxt",
-              "multiline": true,
-              "readOnly": true
             },
             {
               "type": "UIButton",
